@@ -1,100 +1,39 @@
 import { useState } from "react";
 import "./App.css";
-import { Space, Table, Tag } from 'antd';
 
-
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser', 'cool'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-  {
-    key: '4',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-  {
-    key: '5',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+import {
+    Route,
+    RouterProvider,
+    createBrowserRouter,
+    createRoutesFromElements,
+} from "react-router-dom";
+// import pages
+import Registration from "./pages/Registration";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Otp from "./pages/Otp";
+import ForgotPassword from "./pages/ForgotPassword";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
-    const [count, setCount] = useState(0);
-
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route>
+                <Route path="/" element={<Registration />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+                <Route
+                    path="/forgotpassword"
+                    element={<ForgotPassword />}
+                ></Route>
+                <Route path="/otp/:email" element={<Otp />}></Route>
+                <Route path="/home" element={<Home />}></Route>
+                <Route path="/changepassword" element={<ChangePassword />}></Route>
+            </Route>
+        )
+    );
     return (
         <>
-            <Table columns={columns} dataSource={data} />
+            <RouterProvider router={router} />
         </>
     );
 }
