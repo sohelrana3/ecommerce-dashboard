@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Button, Checkbox, Form, Input, Alert } from "antd";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Registration = () => {
     let [error, seterror] = useState({});
@@ -19,7 +19,7 @@ const Registration = () => {
             data
         );
         seterror(userdata.data);
-        navigate(`/otp/${userdata.data.email}`)
+        navigate(`/otp/${userdata.data.email}`);
     };
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
@@ -102,6 +102,12 @@ const Registration = () => {
                     </Button>
                 </Form.Item>
             </Form>
+            <p>
+                Have an account?
+                <span>
+                    <Link to="/login">Sign in</Link>
+                </span>
+            </p>
         </Card>
     );
 };

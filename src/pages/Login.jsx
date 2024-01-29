@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button, Checkbox, Form, Input, Alert } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -16,9 +16,7 @@ const Login = () => {
             data
         );
 
-
         console.log(userdata.data);
-
     };
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
@@ -98,6 +96,9 @@ const Login = () => {
                     </Button>
                 </Form.Item>
             </Form>
+            <p>
+                <Link to="/forgotpassword">Forgotpassword</Link>
+            </p>
         </Card>
     );
 };

@@ -27,7 +27,7 @@ function App() {
                 ></Route>
                 <Route path="/otp/:email" element={<Otp />}></Route>
                 <Route path="/home" element={<Home />}></Route>
-                <Route path="/changepassword" element={<ChangePassword />}></Route>
+                <Route path="/changepassword/:token" element={<ChangePassword />}></Route>
             </Route>
         )
     );
