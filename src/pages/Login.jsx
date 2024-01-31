@@ -2,11 +2,13 @@ import React from "react";
 import { Card, Button, Checkbox, Form, Input, Alert } from "antd";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
     let navigate = useNavigate();
+    const notifyerror = (message) => toast.error(message);
+    const notifysuccess = (message) => toast.success(message);
     const onFinish = async (values) => {
-        console.log("Success:", values);
         let data = {
             email: values.email,
             password: values.password,
@@ -15,8 +17,13 @@ const Login = () => {
             "http://localhost:8000/api/v1/auth/login",
             data
         );
-
-        console.log(userdata.data);
+       // login data verify
+        if (userdata.data.verify == true) {
+            navigate("/home");
+            console.log(userdata);
+            notifysuccess("Login Successfull");
+        }
+        notifyerror(userdata.data.error);
     };
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);

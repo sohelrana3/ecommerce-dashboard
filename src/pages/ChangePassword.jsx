@@ -18,7 +18,7 @@ const ChangePassword = () => {
         );
 
         console.log(otpData);
-        // navigate("/login")
+        navigate("/login");
     };
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
