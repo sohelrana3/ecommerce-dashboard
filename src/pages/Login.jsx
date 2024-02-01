@@ -17,11 +17,17 @@ const Login = () => {
             "http://localhost:8000/api/v1/auth/login",
             data
         );
-       // login data verify
-        if (userdata.data.verify == true) {
+        // login data verify
+        if (userdata.data.role == "Admin") {
             navigate("/home");
             console.log(userdata);
             notifysuccess("Login Successfull");
+        } else {
+            if (userdata.data.role == "User") {
+                notifyerror(
+                    "You do not have permission for login Please Update role "
+                );
+            }
         }
         notifyerror(userdata.data.error);
     };

@@ -14,6 +14,8 @@ import Home from "./pages/Home";
 import Otp from "./pages/Otp";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
+import UserList from "./components/UserList";
+import MerchantList from "./components/MerchantList";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -34,7 +36,10 @@ function App() {
                     element={<ChangePassword />}
                 ></Route>
 
-                <Route path="/home" element={<Home />}></Route>
+                <Route path="/home" element={<Home />}>
+                    <Route index  element={<MerchantList />}></Route>
+                    <Route path="userlist" element={<UserList />}></Route>
+                </Route>
             </Route>
         )
     );

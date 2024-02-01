@@ -1,9 +1,72 @@
-import React from 'react'
+import React from "react";
+import { Col, Row, Menu } from "antd";
+import { useNavigate, Outlet } from "react-router-dom";
+import {
+    AppstoreOutlined,
+    MailOutlined,
+    SettingOutlined,
+} from "@ant-design/icons";
 
-const Home = () => {
-  return (
-    <div>Home</div>
-  )
+function getItem(label, key, icon, children, type) {
+    return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+    };
 }
 
-export default Home
+const Home = () => {
+    const navigation = useNavigate();
+    const items = [
+        getItem("Deshboard", "sub1", <MailOutlined />, [
+            getItem("Merchant", "/home"),
+            getItem("Users", "/home/userlist"),
+        ]),
+        getItem("Product", "sub2", <AppstoreOutlined />, [
+            getItem("Category", "sub3", null, [
+                getItem("Add Category", "3"),
+                getItem("View Category", "4"),
+            ]),
+            getItem("Sub Category", "sub4", null, [
+                getItem("Add Sub Category", "5"),
+                getItem("View Sub Category", "6"),
+            ]),
+            getItem("Product", "sub5", null, [
+                getItem("Add Product", "7"),
+                getItem("View Product", "8"),
+            ]),
+        ]),
+        getItem("Discount", "sub6", <SettingOutlined />, [
+            getItem("Add Discount", "9"),
+            getItem("View Discount", "10"),
+        ]),
+    ];
+
+    const onClick = (e) => {
+        console.log("click ", e.key);
+        navigation(e.key);
+    };
+    return (
+        <Row>
+            <Col span={5}>
+                <Menu
+                    onClick={onClick}
+                    style={{
+                        width: 256,
+                    }}
+                    defaultSelectedKeys={["1"]}
+                    defaultOpenKeys={["sub1"]}
+                    mode="inline"
+                    items={items}
+                />
+            </Col>
+            <Col span={19}>
+                <Outlet />
+            </Col>
+        </Row>
+    );
+};
+
+export default Home;
