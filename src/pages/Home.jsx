@@ -45,7 +45,7 @@ const Home = () => {
     ];
 
     const onClick = (e) => {
-        console.log("click ", e.key);
+        // console.log("click ", e.key);
         navigation(e.key);
     };
     return (

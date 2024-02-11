@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
     let navigate = useNavigate();
+
     const notifyerror = (message) => toast.error(message);
     const notifysuccess = (message) => toast.success(message);
     const onFinish = async (values) => {
@@ -19,6 +20,7 @@ const Login = () => {
         );
         // login data verify
         if (userdata.data.role == "Admin") {
+            localStorage.setItem("user", JSON.stringify(userdata.data));
             navigate("/home");
             console.log(userdata);
             notifysuccess("Login Successfull");
