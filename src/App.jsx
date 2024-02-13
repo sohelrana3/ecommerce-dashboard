@@ -16,6 +16,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
 import UserList from "./components/UserList";
 import MerchantList from "./components/MerchantList";
+import AddCaragory from "./pages/AddCaragory";
+import ViewCatagory from "./components/ViewCatagory";
+
+// import react toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -39,6 +43,8 @@ function App() {
                 <Route path="/home" element={<Home />}>
                     <Route index  element={<MerchantList />}></Route>
                     <Route path="userlist" element={<UserList />}></Route>
+                    <Route path="addcatagory" element={<AddCaragory />}></Route>
+                    <Route path="viewcatagory" element={<ViewCatagory />}></Route>
                 </Route>
             </Route>
         )

@@ -19,7 +19,7 @@ const Login = () => {
             data
         );
         // login data verify
-        if (userdata.data.role == "Admin") {
+        if (userdata.data.role == "Admin" || userdata.data.role == "Merchant") {
             localStorage.setItem("user", JSON.stringify(userdata.data));
             navigate("/home");
             console.log(userdata);

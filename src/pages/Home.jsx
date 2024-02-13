@@ -26,8 +26,8 @@ const Home = () => {
         ]),
         getItem("Product", "sub2", <AppstoreOutlined />, [
             getItem("Category", "sub3", null, [
-                getItem("Add Category", "3"),
-                getItem("View Category", "4"),
+                getItem("Add Category", "/home/addcatagory"),
+                getItem("View Category", "/home/viewcatagory"),
             ]),
             getItem("Sub Category", "sub4", null, [
                 getItem("Add Sub Category", "5"),
