@@ -5,8 +5,49 @@ import { useSelector } from "react-redux";
 
 const ViewCatagory = () => {
     let [data, setData] = useState([]);
-    let [loading,setLoading] = useState("")
+    let [loading, setLoading] = useState("");
     let userdata = useSelector((state) => state.userData.value);
+    let [loadData, setLoadData] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editid, setEditId] = useState(false);
+
+    // modal
+    const showModal = (id) => {
+        setIsModalOpen(true);
+        setEditId(id);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    // onFinishModal
+
+    const onFinishModal = async (values) => {
+        console.log("Success Modal:", values, editid);
+        let data = await axios.post(
+            "http://localhost:8000/api/v1/product/editcatagory",
+            {
+                name: values.categoryname,
+                id: editid,
+            }
+        );
+        setLoadData(!loadData);
+        setIsModalOpen(false);
+        console.log(data);
+    };
+    // handleDelete button
+    let handleDelete = async (id) => {
+        let data = await axios.post(
+            "http://localhost:8000/api/v1/product/deletcatagory",
+            { id: id }
+        );
+        setLoadData(!loadData);
+
+        console.log(data);
+    };
     const columns = [
         {
             title: "Name",
@@ -29,7 +70,7 @@ const ViewCatagory = () => {
                             type="primary"
                             onClick={() => showModal(record.key)}
                         >
-                            Edit{" "}
+                            Edit
                         </Button>
                     )}
                     <Button
@@ -43,10 +84,7 @@ const ViewCatagory = () => {
                             onClick={() => handleapprove(record)}
                             loading={loading == record.key ? true : false}
                         >
-                            {" "}
-                            {record.active == "Approved"
-                                ? "Hold"
-                                : "Approve"}{" "}
+                            {record.active == "Approved" ? "Hold" : "Approve"}{" "}
                         </Button>
                     )}
                 </Space>
@@ -71,12 +109,60 @@ const ViewCatagory = () => {
             setData(arr);
         }
         viewAllCatagory();
-    }, []);
+    }, [loadData]);
 
     return (
         <>
             <h1>Categories {data.length}</h1>
             <Table columns={columns} dataSource={data} />
+            <Modal
+                title="Basic Modal"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <Form
+                    name="basic"
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 16,
+                    }}
+                    style={{
+                        maxWidth: 600,
+                    }}
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={onFinishModal}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="Category Name"
+                        name="categoryname"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your category name!",
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 8,
+                            span: 16,
+                        }}
+                    >
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Modal>
         </>
     );
 };

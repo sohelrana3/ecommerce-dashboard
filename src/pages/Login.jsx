@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Button, Checkbox, Form, Input, Alert } from "antd";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Login = () => {
     let navigate = useNavigate();
+    let userdata = useSelector((state) => state.userData.value);
+
+
 
     const notifyerror = (message) => toast.error(message);
     const notifysuccess = (message) => toast.success(message);
@@ -36,6 +40,13 @@ const Login = () => {
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
+
+    // 
+    useEffect(()=> {
+        if(userdata){
+            navigate("/home")
+        }
+    },[])
     return (
         <Card
             title="Registration"
