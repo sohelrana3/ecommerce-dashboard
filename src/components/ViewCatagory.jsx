@@ -38,6 +38,38 @@ const ViewCatagory = () => {
         setIsModalOpen(false);
         console.log(data);
     };
+
+    // handleapprove
+    let handleapprove = async (item) => {
+
+        // active catagory
+        if (item.active == "Pending") {
+            let res = await axios.post(
+                "http://localhost:8000/api/v1/product/approvecatagory",
+                {
+                    isActive: true,
+                    id: item.key,
+                }
+            );
+            setLoadData(!loadData);
+
+            return console.log(res);
+        }
+        
+        // Dactive catagory
+        if (item.active == "Approved") {
+            let res = await axios.post(
+                "http://localhost:8000/api/v1/product/approvecatagory",
+                {
+                    isActive: false,
+                    id: item.key,
+                }
+            );
+            setLoadData(!loadData);
+
+            return console.log(res);
+        }
+    };
     // handleDelete button
     let handleDelete = async (id) => {
         let data = await axios.post(
@@ -84,7 +116,7 @@ const ViewCatagory = () => {
                             onClick={() => handleapprove(record)}
                             loading={loading == record.key ? true : false}
                         >
-                            {record.active == "Approved" ? "Hold" : "Approve"}{" "}
+                            {record.active == "Approved" ? "Hold" : "Approve"}
                         </Button>
                     )}
                 </Space>

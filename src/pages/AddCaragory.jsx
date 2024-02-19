@@ -16,9 +16,8 @@ const AddCaragory = () => {
                 ownerId: user._id,
             }
         );
-  
 
-        notifysuccess(values.categoryname + " " + res.data.success);
+        notifysuccess(res.data.success);
     };
     return (
         <Form
