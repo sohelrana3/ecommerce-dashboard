@@ -41,7 +41,6 @@ const ViewCatagory = () => {
 
     // handleapprove
     let handleapprove = async (item) => {
-
         // active catagory
         if (item.active == "Pending") {
             let res = await axios.post(
@@ -55,7 +54,7 @@ const ViewCatagory = () => {
 
             return console.log(res);
         }
-        
+
         // Dactive catagory
         if (item.active == "Approved") {
             let res = await axios.post(
@@ -131,6 +130,7 @@ const ViewCatagory = () => {
                 "http://localhost:8000/api/v1/product/allcatagory"
             );
             data.data.map((item) => {
+                console.log(item);
                 arr.push({
                     key: item._id,
                     name: item.name,
@@ -139,6 +139,7 @@ const ViewCatagory = () => {
             });
 
             setData(arr);
+            console.log(arr);
         }
         viewAllCatagory();
     }, [loadData]);
