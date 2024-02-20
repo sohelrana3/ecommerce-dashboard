@@ -30,8 +30,8 @@ const Home = () => {
                 getItem("View Category", "/home/viewcatagory"),
             ]),
             getItem("Sub Category", "sub4", null, [
-                getItem("Add Sub Category", "5"),
-                getItem("View Sub Category", "6"),
+                getItem("Add Sub Category", "/home/addsubcatagory"),
+                getItem("View Sub Category", "/home/viewsubcatagory"),
             ]),
             getItem("Product", "sub5", null, [
                 getItem("Add Product", "7"),

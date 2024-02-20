@@ -18,6 +18,8 @@ import UserList from "./components/UserList";
 import MerchantList from "./components/MerchantList";
 import AddCaragory from "./pages/AddCaragory";
 import ViewCatagory from "./components/ViewCatagory";
+import ViewSubCatagory from "./components/ViewSubCatagory";
+import AddSubCatagory from "./components/AddSubCatagory";
 
 // import react toast
 import { ToastContainer, toast } from "react-toastify";
@@ -45,6 +47,8 @@ function App() {
                     <Route path="userlist" element={<UserList />}></Route>
                     <Route path="addcatagory" element={<AddCaragory />}></Route>
                     <Route path="viewcatagory" element={<ViewCatagory />}></Route>
+                    <Route path="addsubcatagory" element={<AddSubCatagory />}></Route>
+                    <Route path="viewsubcatagory" element={<ViewSubCatagory />}></Route>
                 </Route>
             </Route>
         )
