@@ -34,7 +34,7 @@ const Home = () => {
                 getItem("View Sub Category", "/home/viewsubcatagory"),
             ]),
             getItem("Product", "sub5", null, [
-                getItem("Add Product", "7"),
+                getItem("Add Product", "/home/addproduct"),
                 getItem("View Product", "8"),
             ]),
         ]),

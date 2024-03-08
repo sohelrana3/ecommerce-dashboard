@@ -20,6 +20,7 @@ import AddCaragory from "./pages/AddCaragory";
 import ViewCatagory from "./components/ViewCatagory";
 import ViewSubCatagory from "./components/ViewSubCatagory";
 import AddSubCatagory from "./components/AddSubCatagory";
+import AddProduct from "./components/AddProduct";
 
 // import react toast
 import { ToastContainer, toast } from "react-toastify";
@@ -49,6 +50,7 @@ function App() {
                     <Route path="viewcatagory" element={<ViewCatagory />}></Route>
                     <Route path="addsubcatagory" element={<AddSubCatagory />}></Route>
                     <Route path="viewsubcatagory" element={<ViewSubCatagory />}></Route>
+                    <Route path="addproduct" element={<AddProduct />}></Route>
                 </Route>
             </Route>
         )
