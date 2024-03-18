@@ -35,7 +35,8 @@ const Home = () => {
             ]),
             getItem("Product", "sub5", null, [
                 getItem("Add Product", "/home/addproduct"),
-                getItem("View Product", "8"),
+                getItem("View Product", "/home/viewproduct"),
+                getItem("Add Variant", "/home/addvariant"),
             ]),
         ]),
         getItem("Discount", "sub6", <SettingOutlined />, [

@@ -1,0 +1,120 @@
+import React, { useState, useEffect } from "react";
+import { Button, Checkbox, Form, Input, Select } from "antd";
+import axios from "axios";
+
+const AddVariant = () => {
+    let [value, setValue] = useState("");
+    let [image, setImage] = useState({});
+    let [imagePrev, setImagePrev] = useState("");
+    let [prolist, setProlist] = useState([]);
+    let [productId, setProductId] = useState("");
+
+    // from data
+    const onFinish = async (values) => {
+        console.log("Success:", values);
+        let data = await axios.post(
+            "http://localhost:8000/api/v1/product/createVariant",
+            {
+                name: values.name,
+                images: image,
+                productId: productId,
+            },
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+        console.log(data);
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log("Failed:", errorInfo);
+    };
+    let handleChange = (e) => {
+        setImage(e.target.files[0]);
+        setImagePrev(URL.createObjectURL(e.target.files[0]));
+    };
+    let handleChange2 = (e) => {
+        setProductId(e);
+        console.log(e);
+    };
+
+    //
+    useEffect(() => {
+        console.log("running");
+        async function getData() {
+            let data = await axios.get(
+                "http://localhost:8000/api/v1/product/allproduct"
+            );
+            console.log(data.data);
+            let arr = [];
+            data.data.map((item) => {
+                arr.push({
+                    label: item.name,
+                    value: item._id,
+                });
+            });
+            setProlist(arr);
+        }
+        getData();
+    }, []);
+    return (
+        <>
+            <Form
+                name="basic"
+                labelCol={{
+                    span: 8,
+                }}
+                wrapperCol={{
+                    span: 16,
+                }}
+                style={{
+                    maxWidth: 1000,
+                }}
+                initialValues={{
+                    remember: true,
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+                enctype="multipart/form-data"
+            >
+                <Select
+                    defaultValue=""
+                    style={{
+                        width: 120,
+                    }}
+                    options={prolist}
+                    onChange={handleChange2}
+                />
+                <Form.Item
+                    wrapperCol={{
+                        offset: 8,
+                        span: 16,
+                    }}
+                >
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Form.Item>
+                <Form.Item
+                    label="Product Name"
+                    name="name"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Please input your product name!",
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Input onChange={handleChange} type="file" />
+                <img src={imagePrev} />
+            </Form>
+        </>
+    );
+};
+
+export default AddVariant;

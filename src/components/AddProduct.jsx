@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Form, Input, Card, Col, Row, Select } from "antd";
+import {
+    Button,
+    Checkbox,
+    Form,
+    Input,
+    Card,
+    Col,
+    Row,
+    Select,
+    Alert,
+    Space,
+} from "antd";
 import axios from "axios";
 
 const AddProduct = () => {
@@ -7,6 +18,7 @@ const AddProduct = () => {
     let [checkSize, setCheckSize] = useState("");
     let [value, setValue] = useState("");
     let [valuestock, setValueStock] = useState("");
+    let [data, setdata] = useState("");
     let [storelist, setStorelist] = useState([]);
     let [images, setimages] = useState({});
     let [imagePrev, setImagePrev] = useState("");
@@ -26,53 +38,54 @@ const AddProduct = () => {
                 },
             }
         );
+        setdata(data.data.success);
         console.log(data.data);
     };
 
-    const onFinish = (values) => {
-        let arr = [...varinatvalue];
+    // const onFinish = (values) => {
+    //     let arr = [...varinatvalue];
 
-        if (values.variantname.toLowerCase() == "size") {
-            setCheckSize("size");
-        }
-        arr.push({
-            name: values.variantname,
-            value: [],
-        });
-        if (arr.length <= 2) {
-            setVarinatvalue(arr);
-        } else {
-            console.log("Bas r na");
-        }
-    };
+    //     if (values.variantname.toLowerCase() == "size") {
+    //         setCheckSize("size");
+    //     }
+    //     arr.push({
+    //         name: values.variantname,
+    //         value: [],
+    //     });
+    //     if (arr.length <= 2) {
+    //         setVarinatvalue(arr);
+    //     } else {
+    //         console.log("Bas r na");
+    //     }
+    // };
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
 
-    const handleVariantValue = (index) => {
-        varinatvalue[index].value.push({
-            name: value,
-            stock: valuestock,
-        });
-        let arr = [...varinatvalue];
-        console.log(arr);
-        setVarinatvalue(arr);
-    };
+    // const handleVariantValue = (index) => {
+    //     varinatvalue[index].value.push({
+    //         name: value,
+    //         stock: valuestock,
+    //     });
+    //     let arr = [...varinatvalue];
+    //     console.log(arr);
+    //     setVarinatvalue(arr);
+    // };
 
-    let handleDelete = (index) => {
-        console.log(index);
-        let arr = [...varinatvalue];
-        arr.splice(index, 1);
-        setVarinatvalue(arr);
-    };
+    // let handleDelete = (index) => {
+    //     console.log(index);
+    //     let arr = [...varinatvalue];
+    //     arr.splice(index, 1);
+    //     setVarinatvalue(arr);
+    // };
 
-    let handleValueDelete = (mainid, id) => {
-        console.log(mainid, id);
-        let arr = [...varinatvalue];
-        console.log(arr[mainid].value);
-        arr[mainid].value.splice(id, 1);
-        setValue(arr);
-    };
+    // let handleValueDelete = (mainid, id) => {
+    //     console.log(mainid, id);
+    //     let arr = [...varinatvalue];
+    //     console.log(arr[mainid].value);
+    //     arr[mainid].value.splice(id, 1);
+    //     setValue(arr);
+    // };
 
     // handleChange
     let handleChange = (e) => {
@@ -82,12 +95,11 @@ const AddProduct = () => {
     };
 
     useEffect(() => {
-        console.log("running");
         async function getData() {
             let data = await axios.get(
                 "http://localhost:8000/api/v1/product/allStore/65b5bbd0eeb07cf9112bdd80"
             );
-            console.log(data.data);
+
             setStorelist(data.data);
         }
         getData();
@@ -95,6 +107,19 @@ const AddProduct = () => {
 
     return (
         <>
+            {data && (
+                <Space
+                    direction="vertical"
+                    style={{
+                        width: "44%",
+                        marginLeft: "330px",
+                        marginBottom: "20px",
+                    }}
+                >
+                    <Alert message={data} type="success" showIcon />
+                </Space>
+            )}
+
             <Form
                 name="basic"
                 labelCol={{
@@ -113,16 +138,6 @@ const AddProduct = () => {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
-                <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
                 <Form.Item
                     label="Product Name"
                     name="name"
@@ -166,15 +181,25 @@ const AddProduct = () => {
                 >
                     <Select>
                         {storelist.map((item) => (
-                            <Select.Option value={item._id}>
+                            <Select.Option key={item._id} value={item._id}>
                                 {item.storename}
                             </Select.Option>
                         ))}
                     </Select>
                 </Form.Item>
+                <Form.Item
+                    wrapperCol={{
+                        offset: 8,
+                        span: 16,
+                    }}
+                >
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Form.Item>
             </Form>
 
-            <Form
+            {/* <Form
                 name="basic"
                 labelCol={{
                     span: 8,
@@ -287,7 +312,7 @@ const AddProduct = () => {
                             </Col>
                         ))}
                 </Row>
-            </Form>
+            </Form> */}
         </>
     );
 };
